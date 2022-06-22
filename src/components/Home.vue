@@ -133,7 +133,8 @@
     computed: {
       viewPortSize() {
         return {
-          smAndDown: this.$vuetify.breakpoint.smAndDown,
+          xsOnly: this.$vuetify.breakpoint.xsOnly,
+          smOnly: this.$vuetify.breakpoint.smOnly,
           mdOnly: this.$vuetify.breakpoint.mdOnly,
           lgAndUp: this.$vuetify.breakpoint.lgAndUp
         };
@@ -155,11 +156,11 @@
     },
     methods: {
       updateBackgroundImage(breaks) {
-        if (breaks.smAndDown) {
+        if (breaks.xsOnly) {
           this.bannerProps.backgroundImage = `url(${require('@/assets/imgs/banner/64.jpg')})`;
           this.nameProps.fontSize = '2rem';
-        } else if (breaks.mdOnly) {
-          this.bannerProps.backgroundImage = `url(${require('@/assets/imgs/banner/67.jpg')})`;
+        } else if (breaks.mdOnly || breaks.smOnly) {
+          this.bannerProps.backgroundImage = `url(${require('@/assets/imgs/banner/Z72_2804.jpg')})`;
           this.nameProps.fontSize = '2.5rem';
         } else {
           this.bannerProps.backgroundImage = `url(${require('@/assets/imgs/banner/68.jpg')})`;
