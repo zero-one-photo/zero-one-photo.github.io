@@ -1,8 +1,8 @@
 <template>
   <v-row justify="center">
     <v-col
-      cols="3"
-      md="4"
+      cols="4"
+      lg="2"
       v-for="(image, i) in images"
       :key="i"
       class="greyscale"
@@ -32,6 +32,7 @@
     <v-dialog 
       v-model="showCarousel"
       eager
+      max-width="1250"
     >
       <v-carousel 
         v-model="selectedImage"
@@ -40,14 +41,14 @@
         height="auto"
       >
         <v-carousel-item 
-          v-for="image in images" 
-          :key="image.id"
+          v-for="(image, i) in images" 
+          :key="i"
         >
           <v-img
             :lazy-src="require('@/assets/imgs/thumb/' + image.filename)"
             :src="require('@/assets/imgs/fullsize/' + image.filename)"
             contain
-            max-height="1200"
+            max-height="1160"
             eager
           >
             <template v-slot:placeholder>
