@@ -3,6 +3,7 @@
     <div :style="bannerProps" v-if="bgLoaded">
       <div :style="logoProps">
         <v-card
+          v-if="!showGalleries"
           color="rgb(0,0,0,.5)"
         >
           <v-card-title
@@ -28,11 +29,16 @@
           <v-card-actions>
             <v-row justify="center">
               <v-col cols="12" md="4" class="d-flex justify-center pb-md-3 pb-0" >
-                <v-btn outlined rounded color="white">
+                <v-btn 
+                  outlined 
+                  rounded 
+                  color="white"
+                  @click="showGalleries = !showGalleries"
+                >
                   Galleries
                 </v-btn>
               </v-col>
-              <v-col cols="2" class="py-md-3 py-2">
+              <v-col cols="2" class="py-md-3 py-2 d-flex justify-center">
                 <v-btn
                   color="white"
                   icon
@@ -44,7 +50,7 @@
                   </v-icon>
                 </v-btn>
               </v-col>
-              <v-col cols="2" class="py-md-3 py-2">
+              <v-col cols="2" class="py-md-3 py-2 d-flex justify-center">
                 <v-btn
                   color="white"
                   icon
@@ -60,23 +66,37 @@
           </v-card-actions>
         </v-card>
       </div>
+
+      <v-slide-y-reverse-transition>
+        <div :style="galleriesProps" v-if="showGalleries">
+            <galleries @collapse="showGalleries = !showGalleries"/>
+        </div>
+        </v-slide-y-reverse-transition>
+
     </div>
+
     <v-row v-if="!bgLoaded" :style="loadingProps">
-      <v-col cols="12">
+      <v-col cols="12" class="d-flex justify-center">
         <v-progress-linear
           indeterminate
         >
         </v-progress-linear>
       </v-col>
     </v-row>
+
   </div>
   
 </template>
 
 <script>
+  import Galleries from "./Galleries.vue"; 
   export default {
+    components: { 
+      Galleries 
+    },
     data() {
       return {
+        showGalleries: false,
         bgLoaded: false,
         bannerProps: {
           backgroundImage: `url(${require('@/assets/imgs/banner/64.jpg')})`,
@@ -102,8 +122,12 @@
           fontFamily: 'Rajdhani, sans-serif',
           color: 'white',
           fontSize: '2rem'
+        },
+        galleriesProps: {
+          height: '100vh',
+          width: '100vw',
+          backgroundColor: 'white'
         }
-
       }
     },
     computed: {
