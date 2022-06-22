@@ -121,7 +121,7 @@
         nameProps: {
           fontFamily: 'Rajdhani, sans-serif',
           color: 'white',
-          fontSize: '2rem'
+          fontSize: '1.4rem'
         },
         galleriesProps: {
           height: '100vh',
@@ -141,13 +141,17 @@
       }
     },
     watch: {
-      viewPortSize: function (val) {
-        this.updateBackgroundImage(val);
+      viewPortSize: {
+        handler: function (val) {
+          this.updateBackgroundImage(val);
+        },
+        deep: true
       }
     },
-    mounted() {
+    created() {
       const breakpoints = {
-        smAndDown: this.$vuetify.breakpoint.smAndDown,
+        xsOnly: this.$vuetify.breakpoint.xsOnly,
+        smOnly: this.$vuetify.breakpoint.smOnly,
         mdOnly: this.$vuetify.breakpoint.mdOnly,
         lgAndUp: this.$vuetify.breakpoint.lgAndUp
       };
@@ -156,16 +160,20 @@
     },
     methods: {
       updateBackgroundImage(breaks) {
+        console.log(breaks);
         if (breaks.xsOnly) {
           this.bannerProps.backgroundImage = `url(${require('@/assets/imgs/banner/64.jpg')})`;
-          this.nameProps.fontSize = '2rem';
+          this.nameProps.fontSize = '1.4rem';
         } else if (breaks.mdOnly || breaks.smOnly) {
-          this.bannerProps.backgroundImage = `url(${require('@/assets/imgs/banner/Z72_2804.jpg')})`;
-          this.nameProps.fontSize = '2.5rem';
-        } else {
+            this.bannerProps.backgroundImage = `url(${require('@/assets/imgs/banner/Z72_2804.jpg')})`;
+            if (breaks.mdOnly) {
+              this.nameProps.fontSize = '2.5rem';
+            } else if (breaks.smOnly) {
+                this.nameProps.fontSize = '1.7rem';
+            }
+        } else if (breaks.lgAndUp) {
           this.bannerProps.backgroundImage = `url(${require('@/assets/imgs/banner/68.jpg')})`;
           this.nameProps.fontSize = '3rem';
-
         }
       },
       loadBg() {
