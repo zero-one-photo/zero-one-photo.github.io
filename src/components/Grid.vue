@@ -48,7 +48,8 @@
             :lazy-src="require('@/assets/imgs/thumb/' + image.filename)"
             :src="require('@/assets/imgs/fullsize/' + image.filename)"
             contain
-            max-height="1160"
+            max-width="90vw"
+            max-height="90vh"
             eager
           >
             <template v-slot:placeholder>

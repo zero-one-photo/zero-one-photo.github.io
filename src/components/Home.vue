@@ -160,7 +160,6 @@
     },
     methods: {
       updateBackgroundImage(breaks) {
-        console.log(breaks);
         if (breaks.xsOnly) {
           this.bannerProps.backgroundImage = `url(${require('@/assets/imgs/banner/64.jpg')})`;
           this.nameProps.fontSize = '1.4rem';
